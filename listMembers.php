@@ -26,7 +26,11 @@
     <link rel="stylesheet" href="../css/flaticon.css">
     <link rel="stylesheet" href="../css/icomoon.css">
     <link rel="stylesheet" href="../css/style.css">
-    
+    <style>
+      div#colorlib-main {
+        background: white;
+      }
+    </style>
   </head>
   <body>
     <?php
@@ -50,13 +54,56 @@
         <section class="ftco-section bg-light ftco-bread">
         <div class="container">
           <div class="row no-gutters slider-text align-items-center">
-            <div class="col-md-9 ftco-animate">
-              <h1 class="mb-3 bread">Welcome Admin!</h1>
-              <p>Welocme to dashboard of Capture photography site! Here you can add, delete and update different website contents.</p>
-            </div>
+            <div class="col-md-12 ftco-animate">
+        <?php if(isset($_GET["addition"])){
+            if($_GET["addition"] == 'true'){ ?>
+          <div class="alert alert-success">
+            <strong>Member added Successfully!</strong>
+          </div>
+        <?php }elseif($_GET["addition"] == 'false'){ ?>
+          <div class="alert alert-danger">
+            <strong>Error adding member!</strong>
+          </div>
+        <?php } }?>
+        <a href="addMemberForm.php" class="btn btn-primary btn-lg">Add New</a><br/><br/>
+        <table class="list" cellpadding="5" cellspacing="2" border="2">
+          <tr>
+            <th>Name</th>
+            <th>Position</th>
+            <th>Info</th>
+            <th>image</th>
+            <th> </th>
+            <th> </th>
+          </tr>
+          <?php
+
+            $q = $db->query("SELECT 
+              *
+              FROM
+              staff
+              ");
+
+            if($q === false)
+            { 
+              die($db->error);
+            }
+
+            while ($row = $q->fetch_assoc()) { ?>
+              <tr>
+                <td><?= $row["name"] ?></td>
+                <td><?= $row["position"] ?></td>
+                <td><?= $row["description"] ?></td>
+                <td><img height="250px" width="250px" src="<?= "../images/staff/".$row['image_file']?>""</td>
+                <td><a class="btn btn-primary" href="updateMemberForm.php?staff_id=<?= $row['staff_id']?>">Update</a></td>
+                <td><a class="btn btn-danger" href="deleteMember.php?staff_id=<?= $row['staff_id']?>">Delete</a></td>
+              </tr>
+          <?php } ?>
+        </table>
+        </div>
           </div>
         </div>
-      </section>        
+      </section> 
+      
     <footer class="ftco-footer ftco-bg-dark ftco-section">
         <div class="container px-md-5">
             <div class="row">
@@ -66,9 +113,9 @@
             </div>
         </div>
     </footer>
-   </div>
-        
-  </div>
+</div>
+
+    </div>
   <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
 
 

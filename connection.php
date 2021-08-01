@@ -13,5 +13,5 @@
 		echo "Connection successfull!";
 	}
 
-	include("functions.php");
+	include("../functions.php");
 ?>

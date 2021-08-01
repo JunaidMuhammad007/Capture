@@ -26,7 +26,11 @@
     <link rel="stylesheet" href="../css/flaticon.css">
     <link rel="stylesheet" href="../css/icomoon.css">
     <link rel="stylesheet" href="../css/style.css">
-    
+    <style>
+      div#colorlib-main {
+        background: white;
+      }
+    </style>
   </head>
   <body>
     <?php
@@ -44,19 +48,54 @@
         if(!$userLoggedIn){
           header("Location: loginForm.php");
         }
+
+        $q = $db->query("SELECT 
+              *
+              FROM
+              staff
+              WHERE
+              staff_id = $_GET[staff_id]
+              ");
+
+            if($q === false)
+            { 
+              die($db->error);
+            }
+
+            $row = $q->fetch_assoc();
       ?>
     </aside>
       <div id="colorlib-main">
         <section class="ftco-section bg-light ftco-bread">
         <div class="container">
           <div class="row no-gutters slider-text align-items-center">
-            <div class="col-md-9 ftco-animate">
-              <h1 class="mb-3 bread">Welcome Admin!</h1>
-              <p>Welocme to dashboard of Capture photography site! Here you can add, delete and update different website contents.</p>
-            </div>
+            <div class="col-md-12 ftco-animate">
+
+        <form action="updateMember.php?staff_id=<?=$_GET['staff_id']?>" method="post">
+        <table class="list" cellpadding="5" cellspacing="2" border="2">
+          <tr>
+            <th>Name</th><td><input type="text" value="<?=$row['name']?>" name="name"></td>
+          </tr>
+          <tr>
+            <th>Position</th><td><input type="text" value="<?=$row['position']?>" name="position"></td>
+          </tr>
+          <tr>
+            <th>Info</th><td><input type="text" value="<?=$row['description']?>" name="description"></td>
+          </tr>
+          <tr>
+            <th>image</th><td><input type="file" name="image_file" value="<?= "../images/staff/".$row['image_file']?>"></td>
+            <td><img height="250px" width="250px" src="<?= "../images/staff/".$row['image_file']?>"</td>
+          </tr>
+          <tr>
+            <td><input type="submit" name="submit"></td>
+          </tr>
+        </table>
+        </form>
+        </div>
           </div>
         </div>
-      </section>        
+      </section> 
+      
     <footer class="ftco-footer ftco-bg-dark ftco-section">
         <div class="container px-md-5">
             <div class="row">
@@ -66,9 +105,9 @@
             </div>
         </div>
     </footer>
-   </div>
-        
-  </div>
+</div>
+
+    </div>
   <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
 
 

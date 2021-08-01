@@ -26,7 +26,11 @@
     <link rel="stylesheet" href="../css/flaticon.css">
     <link rel="stylesheet" href="../css/icomoon.css">
     <link rel="stylesheet" href="../css/style.css">
-    
+    <style>
+      div#colorlib-main {
+        background: white;
+      }
+    </style>
   </head>
   <body>
     <?php
@@ -44,19 +48,37 @@
         if(!$userLoggedIn){
           header("Location: loginForm.php");
         }
-      ?>
+        ?>
     </aside>
       <div id="colorlib-main">
         <section class="ftco-section bg-light ftco-bread">
         <div class="container">
           <div class="row no-gutters slider-text align-items-center">
-            <div class="col-md-9 ftco-animate">
-              <h1 class="mb-3 bread">Welcome Admin!</h1>
-              <p>Welocme to dashboard of Capture photography site! Here you can add, delete and update different website contents.</p>
-            </div>
+            <div class="col-md-12 ftco-animate">
+
+              <h1>Add New Staff Member</h1>
+        <form action="addMember.php" method="post">
+        <table class="list" cellpadding="5" cellspacing="2" border="2">
+          <tr>
+            <th>Name</th><td><input type="text" name="name" required="required"></td>
+          </tr>
+          <tr>
+            <th>Position</th><td><input type="text" name="position" required="required"></td>
+          </tr>
+          <tr>
+            <th>Info</th><td><textarea name="description" required="required" cols="50"></textarea></td>
+          </tr>
+          <tr>
+            <th>image</th><td><input type="file" name="image_file"></td>
+          </tr>
+        </table>
+        <input type="submit" name="submit">
+        </form>
+        </div>
           </div>
         </div>
-      </section>        
+      </section> 
+      
     <footer class="ftco-footer ftco-bg-dark ftco-section">
         <div class="container px-md-5">
             <div class="row">
@@ -66,9 +88,9 @@
             </div>
         </div>
     </footer>
-   </div>
-        
-  </div>
+</div>
+
+    </div>
   <div id="ftco-loader" class="show fullscreen"><svg class="circular" width="48px" height="48px"><circle class="path-bg" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke="#eeeeee"/><circle class="path" cx="24" cy="24" r="22" fill="none" stroke-width="4" stroke-miterlimit="10" stroke="#F96D00"/></svg></div>
 
 

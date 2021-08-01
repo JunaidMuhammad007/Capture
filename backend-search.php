@@ -10,7 +10,7 @@ if($link === false){
  
 if(isset($_REQUEST["term"])){
     // Prepare a select statement
-    $sql = "SELECT * FROM user_details WHERE name LIKE ?";
+    $sql = "SELECT * FROM admin_details WHERE name LIKE ?";
     
     if($stmt = mysqli_prepare($link, $sql)){
         // Bind variables to the prepared statement as parameters
